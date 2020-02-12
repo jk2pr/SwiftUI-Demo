@@ -14,13 +14,28 @@ struct ContentView: View {
         
        Button(action: {
             // What to perform
-        self.downloadPDF()
+        self.activateProximitySensor()
         })
        {
          Text("Download pdf")   // How the button looks like
         }
         
     }
+    
+    func activateProximitySensor() {
+        let device = UIDevice.current
+        device.isProximityMonitoringEnabled = true
+        if device.isProximityMonitoringEnabled {
+            NotificationCenter.default.addObserver(self, selector: Selector(("proximityChanged:")), name: NSNotification.Name(rawValue: "UIDeviceProximityStateDidChangeNotification"), object: device)
+        }
+    }
+
+    func proximityChanged(notification: NSNotification) {
+        if let device = notification.object as? UIDevice {
+            print("\(device) detected!")
+        }
+    }
+    
     
     func downloadPDF() -> Void {
    
