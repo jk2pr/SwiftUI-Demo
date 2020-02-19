@@ -10,15 +10,60 @@ import SwiftUI
 import Alamofire
 
 struct ContentView: View {
-    var body: some View {
+    
+    
+    // MARK: - Propertiers
+    @State private var email = ""
+    @State private var password = ""
+    
+    
+    var body: some View
+    {
         
-       Button(action: {
-            // What to perform
-        self.activateProximitySensor()
-        })
-       {
-         Text("Download pdf")   // How the button looks like
+        VStack(alignment: .center, spacing: 10.0)
+        {
+            Text("Enter Login Detail")
+                .font(.headline)
+                .fontWeight(.bold)
+                .foregroundColor(Color.white)
+            
+            
+            TextField("Email", text: self.$email)
+                .padding()
+                .background(/*@START_MENU_TOKEN@*/Color.gray/*@END_MENU_TOKEN@*/)
+                .foregroundColor(Color.white)
+                .cornerRadius(20.0)
+            
+            
+            
+            SecureField("Password", text: self.$password)
+                .padding()
+                .background(/*@START_MENU_TOKEN@*/Color.gray/*@END_MENU_TOKEN@*/)
+                .cornerRadius(20.0)
+            
+            
+            
+            
+            
+            Button(action: {
+                // What to perform
+                // self.activateProximitySensor()
+            })
+            {
+                Text("Login")
+                    .font(.body)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.black) .multilineTextAlignment(.center)   // How the button looks like
+            }
+            .padding()
+            .background(Color.green)
+            .cornerRadius(20.0)
+            
         }
+        .padding(.horizontal)
+            
+        .accentColor(.green)
+        
         
     }
     
@@ -29,7 +74,7 @@ struct ContentView: View {
             NotificationCenter.default.addObserver(self, selector: Selector(("proximityChanged:")), name: NSNotification.Name(rawValue: "UIDeviceProximityStateDidChangeNotification"), object: device)
         }
     }
-
+    
     func proximityChanged(notification: NSNotification) {
         if let device = notification.object as? UIDevice {
             print("\(device) detected!")
@@ -38,12 +83,12 @@ struct ContentView: View {
     
     
     func downloadPDF() -> Void {
-   
+        
         
         let url="http://www.africau.edu/images/default/sample.pdf"
         
         let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
-
+        
         Alamofire.download(
             url,
             method: .get,
@@ -54,11 +99,11 @@ struct ContentView: View {
             }).response(completionHandler: { (DefaultDownloadResponse) in
                 
                 let response=DefaultDownloadResponse.response.debugDescription
-                print("Response is " + (response as! String))
+                print("Response is " + (response ))
                 //here you able to access the DefaultDownloadResponse
                 //result closure
             })
-}
+    }
 }
 
 protocol DownloadCallBack
