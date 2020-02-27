@@ -25,11 +25,13 @@ struct ContentView: View {
             Text("Enter Login Detail")
                 .font(.headline)
                 .fontWeight(.bold)
-                .foregroundColor(Color.white)
-            
+                .foregroundColor(Color.black)
+            Spacer()
+            .frame(height: 50)
             
             TextField("Email", text: self.$email)
                 .padding()
+                
                 .background(/*@START_MENU_TOKEN@*/Color.gray/*@END_MENU_TOKEN@*/)
                 .foregroundColor(Color.white)
                 .cornerRadius(20.0)
@@ -43,7 +45,7 @@ struct ContentView: View {
             
             
             
-            
+            Spacer().padding().frame(height: 50)
             
             Button(action: {
                 // What to perform
